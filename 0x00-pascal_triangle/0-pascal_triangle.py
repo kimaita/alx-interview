@@ -1,4 +1,4 @@
-#!usr/bin/python3
+#!/usr/bin/python3
 """This module contains functions to generate Paschal's triangle"""
 
 
@@ -11,11 +11,11 @@ def pascal_triangle(n):
 
     if n <= 0:
         return triangle
-    else:
-        triangle.append([1])
-        for row in range(1, n):
-            triangle.append(generate_row(triangle, row))
-        return triangle
+    
+    triangle.append([1])
+    for row in range(1, n):
+        triangle.append(generate_row(triangle, row))
+    return triangle
 
 
 def generate_row(triangle, n):
