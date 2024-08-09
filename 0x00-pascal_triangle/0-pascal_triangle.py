@@ -11,7 +11,7 @@ def pascal_triangle(n):
 
     if n <= 0:
         return triangle
-    
+
     triangle.append([1])
     for row in range(1, n):
         triangle.append(generate_row(triangle, row))
