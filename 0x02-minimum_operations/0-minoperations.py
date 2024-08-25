@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 """Contans a method for finding the minimum operations needed to achieve
 a result.
 """
