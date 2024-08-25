@@ -16,6 +16,9 @@ def minOperations(n: int) -> int:
     Returns:
         int - min number of operations to achieve n H's.
     """
+    if n < 1:
+        return 0
+
     buf, filled, ops = 0, 1, 0
     rem = n - filled
 
