@@ -44,8 +44,8 @@ class LogSession:
         """Parses a log line to extract and update the HTTP status code and
         size"""
         ptn = re.compile(
-            r"(?P<ip>(\d{1,3}\.?){4}).*\[(?P<time>([\d:\.\- ])*)\] "
-            r'"GET /projects/260 HTTP/1.1" (?P<code>\d{3}) (?P<size>\d{,4})$'
+            r"(?P<ip>(\d{1,3}.){3}\d{1,3}) - \[(?P<time>([\d:\.\- ])*)\] "
+            r'"GET /projects/260 HTTP/1.1" (?P<code>\d{3}) (?P<size>\d{1,4})$'
         )
         match = ptn.match(line)
 
@@ -54,7 +54,7 @@ class LogSession:
             self.status_codes[int(match.group("code"))] += 1
 
     def print_stats(self):
-        """Prints the total fize size for the procssed logs and occurences
+        """Prints the total file size for the processed logs and occurrences
         of each HTTP code
         """
         print("File size: {}".format(self.file_size))
