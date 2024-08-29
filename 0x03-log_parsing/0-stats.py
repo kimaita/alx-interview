@@ -6,14 +6,39 @@ import signal
 import sys
 
 
+class CounterDict(dict):
+    """Implements a counting dict by setting missing keys to a value of 0"""
+
+    def __missing__(self, key):
+        return 0
+
+
 class LogSession:
     """Defines a log session, keeping tally of log records"""
 
-    codes = [200, 301, 400, 401, 403, 404, 405, 500]
-
     def __init__(self):
-        self._file_size = 0
-        self._status_codes = dict.fromkeys(self.codes, 0)
+        self.file_size = 0
+        self.status_codes = CounterDict()
+
+    @property
+    def status_codes(self) -> CounterDict:
+        """status_codes getter"""
+        return self._status_codes
+
+    @status_codes.setter
+    def status_codes(self, codes: CounterDict):
+        """status_codes setter"""
+        self._status_codes = codes
+
+    @property
+    def file_size(self) -> int:
+        """file_size getter"""
+        return self._file_size
+
+    @file_size.setter
+    def file_size(self, size: int):
+        """file_size setter"""
+        self._file_size = size
 
     def parse_line(self, line: str):
         """Parses a log line to extract and update the HTTP status code and
@@ -25,21 +50,20 @@ class LogSession:
         match = ptn.match(line)
 
         if match:
-            self._file_size += int(match.group("size"))
-            self._status_codes[int(match.group("code"))] += 1
+            self.file_size += int(match.group("size"))
+            self.status_codes[int(match.group("code"))] += 1
 
     def print_stats(self):
         """Prints the total fize size for the procssed logs and occurences
         of each HTTP code
         """
-        print("File size: {}".format(self._file_size))
-        for code, count in self._status_codes.items():
-            if count:
-                print("{}: {}".format(code, count))
+        print("File size: {}".format(self.file_size))
+        for code in sorted(self.status_codes):
+            count = self.status_codes.get(code)
+            print("{}: {}".format(code, count))
 
     def signal_handler(self, signum, frame):
         """Handles an intercepted a Ctrl+C signal"""
-        # print("Signal handler called with signal", signum)
         self.print_stats()
 
 
