@@ -1,6 +1,6 @@
 # Log Parsing
 
-The objective here is to parse and process a data stream in real-time. We will be reading a stream of logs fron `stdin` and parsing them to keep a count of HTTP code occurrences and the cumulative file size.
+The objective here is to parse and process a data stream in real-time. We will be reading a stream of logs from `stdin` and parsing them to keep a count of HTTP code occurrences and the cumulative file size.
 
 ## Specifications
 
@@ -16,7 +16,7 @@ Possible status codes:
 200 301 400 401 403 404 405 500
 ```
 
-After every 10 lines and/or a keyboard interruption (`CTRL + C`), we print the total file size and the status code occurences.
+After every 10 lines and/or a keyboard interruption (`CTRL + C`), we print the total file size and the status code occurrences.
 
 ## Example
 
