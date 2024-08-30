@@ -78,3 +78,5 @@ if __name__ == "__main__":
 
         if not lines % 10:
             logs.print_stats()
+
+    logs.print_stats()
