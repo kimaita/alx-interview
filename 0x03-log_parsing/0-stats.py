@@ -44,7 +44,7 @@ class LogSession:
         """Parses a log line to extract and update the HTTP status code and
         size"""
         ptn = re.compile(
-            r"(?P<ip>(\d{1,3}.){3}\d{1,3}) - \[(?P<time>([\d:\.\- ])*)\] "
+            r"(?P<ip>(\d{1,3}.){3}\d{1,3}) ?- ?\[(?P<time>([\d:\.\- ])*)\] "
             r'"GET /projects/260 HTTP/1.1" (?P<code>\d{3}) (?P<size>\d{1,4})$'
         )
         match = ptn.match(line)
