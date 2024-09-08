@@ -4,8 +4,9 @@
 from typing import List
 
 
-def singlebyte(val):
-    return val < 2**7
+def invalid_byte(val: int) -> bool:
+    """Checks whether an integer can be represented in 7bits"""
+    return abs(val) > 2**7
 
 
 def validUTF8(data: List[int]) -> bool:
@@ -13,4 +14,4 @@ def validUTF8(data: List[int]) -> bool:
 
     Return: True if data is a valid UTF-8 encoding, else return False
     """
-    return not any((not singlebyte(val) for val in data))
+    return not any((invalid_byte(val) for val in data))
