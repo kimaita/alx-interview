@@ -6,7 +6,7 @@ from typing import List
 
 def invalid_byte(val: int) -> bool:
     """Checks whether an integer can be represented in 7bits"""
-    return abs(val) > 2**7
+    return abs(val) >= 2**7
 
 
 def validUTF8(data: List[int]) -> bool:
