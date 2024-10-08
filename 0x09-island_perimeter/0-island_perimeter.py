@@ -1,27 +1,5 @@
 #!/usr/bin/python3
-"""Methods for calculating island perimeter"""
-
-
-def count_cell(grid, row_idx, col_idx):
-    """Returns the perimeter of a single cell."""
-    sides = 0
-    try:
-        sides += grid[row_idx - 1][col_idx] ^ 1
-        sides += grid[row_idx + 1][col_idx] ^ 1
-        sides += grid[row_idx][col_idx + 1] ^ 1
-        sides += grid[row_idx][col_idx - 1] ^ 1
-    except IndexError:
-        if row_idx == 0:
-            sides += 1
-        if row_idx == len(grid) - 1:
-            sides += 1
-
-        if col_idx == 0:
-            sides += 1
-        if col_idx == len(grid[row_idx]):
-            sides += 1
-
-    return sides
+"""Method for calculating island perimeter"""
 
 
 def island_perimeter(grid):
@@ -31,9 +9,18 @@ def island_perimeter(grid):
         grid - list of list of ints
     """
     perimeter = 0
+    m = len(grid)
+    n = len(grid[0])
     for row_idx, row in enumerate(grid):
         for col_idx, elem in enumerate(row):
             if elem:
-                perimeter += count_cell(grid, row_idx, col_idx)
+                perimeter += 4
+
+                # shared bottom/top border
+                if row_idx < m - 1 and grid[row_idx + 1][col_idx]:
+                    perimeter -= 2
+                # shared left/right border
+                if col_idx < n - 1 and grid[row_idx][col_idx + 1]:
+                    perimeter -= 2
 
     return perimeter
